@@ -1,8 +1,7 @@
 const wordArr = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
 const onKeyDownNum = ['65', '83', '68', '70', '71', '72', '74', '75', '76']
-const html = document.querySelector('html')
 
-html.addEventListener('keydown', onKeyDown)
+window.addEventListener('keydown', onKeyDown)
 
 //* 印出 字母
 function renderWordArr() {
@@ -25,14 +24,19 @@ function onKeyDown(e) {
 //* 按鍵文字高亮
 function onKeyDownWordHightLight(word) {
     const wordDom = document.querySelector(`.word${word}`)
-    wordDom.classList.add('onKeyDownStyle')
-    setTimeout(() => {
-        wordDom.classList.remove('onKeyDownStyle')
-    }, 100)
+    if (wordDom) {
+        wordDom.classList.add('onKeyDownStyle')
+        setTimeout(() => {
+            wordDom.classList.remove('onKeyDownStyle')
+        }, 100)
+    }
 }
 //* 播放音樂
 function playMusic(index) {
     const audio = document.querySelectorAll('audio')
-    audio[index].play()
+    if (audio[index]) {  //* 如果有這個音樂檔才執行
+        audio[index].currentTime = 0 //* 音樂秒數歸零
+        audio[index].play()
+    }
 }
 renderWordArr()
